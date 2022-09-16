@@ -65,14 +65,17 @@ module.exports.create=function(req,res){
 }
 // signin and create hte session for user.
 module.exports.createsession=function(req,res){
+    req.flash('success','Logged in Succesfully')
     return res.redirect('/');
 }
-module.exports.destroySession=function(req,res){
+module.exports.destroySession=function(req,res,next){
+   
     req.logout(function(err){
         if(err){
             return next(err);   //new way on which show in video.update version
         }
-    }); 
+        req.flash('success','Log out succeessfuly');
+        return res.redirect('/');
+    });
 
-    return res.redirect('/');
 }
